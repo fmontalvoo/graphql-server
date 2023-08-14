@@ -1,0 +1,24 @@
+{
+    "persons": [
+        {
+            "id": "50a33210-3ab8-11ee-9307-91eb88ef2f70",
+            "name": "John",
+            "city": "Anytown",
+            "phone": "1234567890",
+            "street": "1234 Main St"
+        },
+        {
+            "id": "59f843a0-3ab8-11ee-806d-f7e3f99b196b",
+            "name": "Mary",
+            "city": "Othertown",
+            "phone": "0987654321",
+            "street": "4321 Main St"
+        },
+        {
+            "id": "59f843a0-3ab8-11ee-806d-f7e3f99b196b",
+            "name": "Joe",
+            "city": "Anytown",
+            "street": "2468 Main St"
+        }
+    ]
+}

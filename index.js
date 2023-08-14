@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { v1 as uuid } from 'uuid';
 import { ApolloServer, gql, UserInputError } from 'apollo-server';
 
@@ -55,10 +56,11 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        findAll: (parent, args) => {
-            if (!args.phone) return persons;
+        findAll: async (parent, args) => {
+            const { data: personsResponse } = await axios.get('http://localhost:3001/persons');
 
-            return persons.filter(person => args.phone === 'YES' ? person.phone : !person.phone)
+            if (!args.phone) return personsResponse;
+            return personsResponse.filter(person => args.phone === 'YES' ? person.phone : !person.phone)
         },
         findById: (parent, args) => persons.find(person => person.id === Number(args.id)),
     },
