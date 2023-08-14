@@ -32,11 +32,12 @@ const typeDefs = gql`
 
     type Query {
         findAll(phone: YesNo): [Person]!
-        findById(id:ID!): Person
+        findById(id: ID!): Person
     }
 
     type Mutation {
         addPerson(name: String!, phone: String, city: String!, street: String!): Person
+        updateNumber(id: ID!, phone: String!): Person
     }
     
     type Person {
@@ -74,6 +75,13 @@ const resolvers = {
             };
             persons.push(person);
             return person;
+        },
+        updateNumber: (parent, args) => {
+            const index = persons.findIndex(person => person.id === args.id);
+            if (index === -1) return null;
+            const updatedPerson = { ...persons[index], phone: args.phone };
+            persons[index] = updatedPerson;
+            return updatedPerson;
         }
     },
     Person: {
