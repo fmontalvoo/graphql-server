@@ -25,8 +25,13 @@ const persons = [
 ];
 
 const typeDefs = gql`
+    enum YesNo {
+        YES
+        NO
+    }
+
     type Query {
-        findAll: [Person]!
+        findAll(phone: YesNo): [Person]!
         findById(id:ID!): Person
     }
 
@@ -49,12 +54,16 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        findAll: () => persons,
+        findAll: (parent, args) => {
+            if (!args.phone) return persons;
+
+            return persons.filter(person => args.phone === 'YES' ? person.phone : !person.phone)
+        },
         findById: (parent, args) => persons.find(person => person.id === Number(args.id)),
     },
     Mutation: {
         addPerson: (parent, args) => {
-            if(persons.find(person => person.name === args.name)) {
+            if (persons.find(person => person.name === args.name)) {
                 throw new UserInputError('Name must be unique', {
                     invalidArgs: args.name,
                 });
