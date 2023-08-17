@@ -34,6 +34,7 @@ const typeDefs = gql`
     type Query {
         findAll(phone: YesNo): [Person]!
         findById(id: ID!): Person
+        findByName(name: String!): Person
     }
 
     type Mutation {
@@ -63,6 +64,7 @@ const resolvers = {
             return persons.filter(person => args.phone === 'YES' ? person.phone : !person.phone)
         },
         findById: (parent, args) => persons.find(person => person.id === args.id),
+        findByName: (parent, args) => persons.find(person => person.name === args.name),
     },
     Mutation: {
         addPerson: (parent, args) => {
