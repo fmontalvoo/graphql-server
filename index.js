@@ -18,7 +18,7 @@ const persons = [
         street: '4321 Main St',
     },
     {
-        id: '59f843a0-3ab8-11ee-806d-f7e3f99b196b',
+        id: 'ca355d10-3d10-11ee-a7f7-514c6b77604f',
         name: 'Joe',
         city: 'Anytown',
         street: '2468 Main St',
@@ -57,12 +57,12 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         findAll: async (parent, args) => {
-            const { data: personsResponse } = await axios.get('http://localhost:3001/persons');
+            // const { data: personsResponse } = await axios.get('http://localhost:3001/persons');
 
-            if (!args.phone) return personsResponse;
-            return personsResponse.filter(person => args.phone === 'YES' ? person.phone : !person.phone)
+            if (!args.phone) return persons;
+            return persons.filter(person => args.phone === 'YES' ? person.phone : !person.phone)
         },
-        findById: (parent, args) => persons.find(person => person.id === Number(args.id)),
+        findById: (parent, args) => persons.find(person => person.id === args.id),
     },
     Mutation: {
         addPerson: (parent, args) => {
